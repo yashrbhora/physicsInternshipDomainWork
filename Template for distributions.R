@@ -1,0 +1,22 @@
+library(dplyr)
+library(ggplot2)
+library(ggforce)
+library(gridExtra)
+setwd("D:/HDD Files/Desktop/Domain Duration/Raw Durations/E2")
+
+thres1dDur<-read.table("durationsDay44.txt",header=TRUE)
+thres2dDur<-read.table("durationsDay46.txt",header=TRUE)
+thres1dDur<-thres1dDur %>% filter(Duration<=2000)
+thres2dDur<-thres2dDur %>% filter(Duration<=2000)
+avg1<-mean(thres1dDur$Duration)
+std1<-sd(thres1dDur$Duration)
+avg2<-mean(thres2dDur$Duration)
+std2<-sd(thres2dDur$Duration)
+zeplot<-ggplot(thres1dDur,aes(x=Duration)) + geom_histogram(binwidth = 200,fill="light blue",col="black")
+zeplot<- zeplot + xlab("Duration(sec)") + labs(title="Distribution of Domain Durations",caption="2019,April 5th,20%>10%",subtitle=paste("(",avg1,",",std1,")",sep=""))
+zeplot2<-ggplot(thres2dDur,aes(x=Duration)) + geom_histogram(binwidth=200,fill="pink",col="black")
+zeplot2<- zeplot2 + xlab("Duration(sec)") + labs(title="Distribution of Domain Durations",caption="2019,April 7th,20%>10%",subtitle=paste("(",avg2,",",std2,")",sep=""))
+zeplot
+zeplot2
+grid.arrange(zeplot,zeplot2,ncol=2)
+?grid.arrange()
