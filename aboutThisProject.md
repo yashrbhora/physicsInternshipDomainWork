@@ -1,4 +1,3 @@
-#about this project
 Essentially I'm working with a space & plasma physics researcher Dr. David Ruffolo at Mahidol University. The main task I've been assigned is to analyze data from NASA's Parker Solar Probe(the closest probe to the sun) for an upcoming paper he's trying to publish. The type of data I'm analyzing is the magnetic field magnitude recorded by the various instruments on the probe. I believe the probe is currently in its 5th encounter or orbit around the sun. For the time being, I'm working with mainly the first and second encounters. We're especially interested in identifying areas of constant magnetic field magnitude with respect to time. It's more so exploratory data analysis, which means we're trying to make sense out of the data rather than testing a hypothesis.
 
 The professor came up with a criteria to define these areas near-constant magnetic field magnitudes(which we call domains). The criteria is as follow:
