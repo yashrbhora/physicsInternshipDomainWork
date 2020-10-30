@@ -3,15 +3,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataScanner2 {
-    ArrayList<String> Bi = new ArrayList<String>();
+
     ArrayList<Integer> invLength = new ArrayList<Integer>();
     ArrayList<Integer> invLength2 = new ArrayList<Integer>();
     ArrayList<ArrayList<Double>> domains = new ArrayList<ArrayList<Double>>();
     ArrayList<ArrayList<Double>> secdomains = new ArrayList<ArrayList<Double>>();
-    ArrayList<Double> B = new ArrayList<Double>(Bi.size()); //might be redundant
+    ArrayList<Double> B = new ArrayList<Double>();
     double Mx; int Mxt; double Mn; int Mnt; double nan; int Nan; int per; boolean needMax; int initi; int termi; boolean first=true;
     int y; double range; int size=1; boolean term = false; int req; int dcount; int sdcount; int c=0;
-    int line;
+    boolean line; int num=0;
     public DataScanner2(int req, int per) {
 
         this.req=req;
@@ -23,24 +23,26 @@ public class DataScanner2 {
         Scanner sc = new Scanner(file,"UTF-8");
         //April5Y.txt"
         //E2 Data\\BmagE2_notime\\Bmag_E2_day"+day+".csv"
-        while(sc.hasNextDouble()){
+        int nan = 0;
 
-            B.add(sc.nextDouble());
+        int stopper = 0;
+
+        while(sc.hasNext()){
+
+
+            if(sc.hasNext("nan")){
+                B.add(0.0);
+                sc.next();
+                nan++;
+            }else{
+               B.add(Double.valueOf(sc.next()));
+               num++;
+            }
         }
-    }
-
-    public void readFile2() throws IOException {
-        File file = new File("D:\\HDD Files\\Desktop\\Data file.txt");
-
-        BufferedReader br = new BufferedReader(new FileReader(file));
-
-        String st;
-        while ((st = br.readLine()) != null) {
-            Bi.add(st);
-        }
-        for(int i = 0; i<Bi.size(); i++){
-            B.add(Double.valueOf(Bi.get(i)));
-            line++;
+        if(num<86400){
+            line=true;
+        }else{
+            line=false;
         }
     }
 
@@ -187,9 +189,11 @@ public class DataScanner2 {
     public void findDomain(int day, String encounter) throws IOException {
         this.readFile(day,encounter);
         int i=0; int counter=B.size()-1;
+
         while(i<counter){
+
             y=i+1;
-            if(this.doubleComp(B.get(i),B.get(y))){
+            if(this.doubleComp(B.get(i),B.get(y)) & B.get(i)!=0.0){
                 y++; size++;                                                        //need to reset size at termination
                 while(!term){
                     if(y == B.size()){
